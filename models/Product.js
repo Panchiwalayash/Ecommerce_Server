@@ -16,7 +16,11 @@ const ProductSchema =new Schema({
     },  
     imgUrl:{
         type:String,
-        // required:true
+        required:true
+    },
+    quantity:{
+        type:Number,
+        default:20
     }
 },{
     timestamps:true

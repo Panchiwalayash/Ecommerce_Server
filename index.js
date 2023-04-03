@@ -11,9 +11,10 @@ app.use(express.json())
 
 //creating routes
 app.use('/admin',require('./routes/owner/ownerRoutes'))
-app.use('/api/auth',require('./routes/user/auth/authRoutes'))
-app.use('/api/cart',require('./routes/user/cart/cartRoutes'))
-app.use('/api/product',require('./routes/user/product/productRoutes'))
+app.use('/api/auth',require('./routes/user/authRoutes'))
+app.use('/api/cart',require('./routes/user/cartRoutes'))
+app.use('/api/product',require('./routes/user/productRoutes'))
+app.use('/api/order',require('./routes/user/orderRoutes'))
 
 
 const port=5000

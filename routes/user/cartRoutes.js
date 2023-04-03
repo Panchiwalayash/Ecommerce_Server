@@ -1,8 +1,8 @@
 const express=require('express')
 const router=express.Router()
-const fetchAdmin=require('../../../middleware/fetchAdmin')
-const Cart=require('../../../models/Cart')
-const Product=require('../../../models/Product')
+const fetchAdmin=require('../../middleware/fetchAdmin')
+const Cart=require('../../models/Cart')
+const Product=require('../../models/Product')
 
 
 router.post('/addItem',fetchAdmin,async(req,res)=>{

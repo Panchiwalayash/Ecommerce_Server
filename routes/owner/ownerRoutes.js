@@ -72,7 +72,8 @@ router.post('/createproduct',fetchAdmin,upload.single('image'),async(req,res)=>{
                 name:req.body.name,
                 desc:req.body.desc,
                 price:req.body.price,
-                imgUrl:req.file.path
+                imgUrl:req.file.path,
+                quantity:req.body.quantity
             })
 
             // using cloudinary to store image

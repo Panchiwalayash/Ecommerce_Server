@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
-const Product=require('../../../models/Product')
-const fetchAdmin=require('../../../middleware/fetchAdmin')
+const Product=require('../../models/Product')
+const fetchAdmin=require('../../middleware/fetchAdmin')
 
 //get all products
 router.get('/getproduct',fetchAdmin,async(req,res)=>{
