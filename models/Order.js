@@ -7,6 +7,10 @@ const OrderSchema =new Schema({
         ref:'User',
         required:true
     },
+    orderId:{
+        type:String,
+        required:true
+    },
     address:{
         type:String,
         required:true
@@ -15,13 +19,21 @@ const OrderSchema =new Schema({
         type:String,
         required:true
     },
+    state:{
+        type: String,
+        required: true,
+    },
+    pincode: {
+        type: String,
+        required: true,
+      },
     phoneNo:{
         type:String,
         required:true
     },
     date:{
-        type:Date,
-        default:Date.now()
+        type:String,
+        required:true
     },
     productlist:[
         {productId:{
@@ -30,6 +42,10 @@ const OrderSchema =new Schema({
             required:true
             },
             name:String,
+            imgUrl:{
+                type:String,
+                required:true
+            },
             quantity:{
                 type:Number,
                 required:true
@@ -40,6 +56,15 @@ const OrderSchema =new Schema({
             }}
     ],
     totalCost:Number,
+    paymentType:{
+        type:String,
+        required:true
+    },
+    status:{
+        type:String,
+        default:"Accepted",
+        required:true
+    }
 },{
     timestamps:true
 })

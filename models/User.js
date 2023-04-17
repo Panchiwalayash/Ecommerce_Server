@@ -15,10 +15,17 @@ const UserSchema=new Schema({
         required:true,
         unique:true
     },
+    userImg:{
+        type:String,
+    },
     Date:{
         type:Date,
         default:Date.now
-    }
+    },
+    orderHistory:[
+        {type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'}
+    ]
 },
 {timestamps:true})
 

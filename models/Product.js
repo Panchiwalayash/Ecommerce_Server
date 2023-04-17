@@ -20,7 +20,7 @@ const ProductSchema =new Schema({
     },
     quantity:{
         type:Number,
-        default:20
+        default:100
     }
 },{
     timestamps:true

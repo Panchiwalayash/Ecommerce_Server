@@ -1,10 +1,9 @@
 const express=require('express')
 const router=express.Router()
 const Product=require('../../models/Product')
-const fetchAdmin=require('../../middleware/fetchAdmin')
 
 //get all products
-router.get('/getproduct',fetchAdmin,async(req,res)=>{
+router.get('/getproduct',async(req,res)=>{
     try {
         const product=await Product.find();
         res.status(201).json({product})
@@ -14,7 +13,7 @@ router.get('/getproduct',fetchAdmin,async(req,res)=>{
 })
 
 //get product by id
-router.get('/get/:id',fetchAdmin,async(req,res)=>{
+router.get('/get/:id',async(req,res)=>{
     try {
         const product=await Product.findById(req.params.id);
         if(!product){
@@ -26,4 +25,16 @@ router.get('/get/:id',fetchAdmin,async(req,res)=>{
     }
 })
 
+//Search product
+router.get('/search',async(req,res)=>{
+    try {
+        const query=req.query.q
+        const products = await Product.find({
+            name: { $regex: query, $options: "i" },
+          });
+        res.status(200).json({products})
+    } catch (error) {
+        res.status(500).json(`Some internal error occured- ${error}`)
+    }
+})
 module.exports=router

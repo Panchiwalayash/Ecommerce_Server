@@ -1,11 +1,11 @@
 const express=require('express')
 const router=express.Router()
-const fetchAdmin=require('../../middleware/fetchAdmin')
+const fetchUser=require('../../middleware/fetchUser')
 const Cart=require('../../models/Cart')
 const Product=require('../../models/Product')
 
 
-router.post('/addItem',fetchAdmin,async(req,res)=>{
+router.post('/addItem',fetchUser,async(req,res)=>{
     try {
         //checking that cart is created or not
         const cart=await Cart.findOne({userId:req.user.id})
@@ -33,6 +33,7 @@ router.post('/addItem',fetchAdmin,async(req,res)=>{
                 cart.products.push({
                     productId: product._id,
                     name:product.name,
+                    imgUrl:product.imgUrl,
                     quantity: req.body.quantity,
                     price: req.body.quantity * product.price,
                   });
@@ -43,11 +44,12 @@ router.post('/addItem',fetchAdmin,async(req,res)=>{
         } 
         else{
             const product=await Product.findById(req.body.pid)
-            const newCart=await Cart.create({
+            const newCart=new Cart({
                 userId:req.user.id,
-                products:[{productId:product._id,name:product.name,quantity:req.body.quantity,price:req.body.quantity*product.price}]
+                products:[{productId:product._id,name:product.name,imgUrl:product.imgUrl,quantity:req.body.quantity,price:req.body.quantity*product.price}]
             })
-            res.status(200).send({newCart})
+            const cart=await newCart.save()
+            res.status(200).send({cart})
         }
 
     } catch (error) {
@@ -56,7 +58,7 @@ router.post('/addItem',fetchAdmin,async(req,res)=>{
 })
 
 // delete item from cart
-router.post('/deleteItem',fetchAdmin,async(req,res)=>{
+router.post('/deleteItem',fetchUser,async(req,res)=>{
     try {
         //checking that cart is created or not
         const cart=await Cart.findOne({userId:req.user.id})
@@ -74,8 +76,17 @@ router.post('/deleteItem',fetchAdmin,async(req,res)=>{
             cart.products.splice(item,1)
         }
         await cart.save()
-
         res.status(200).json({ cart });
+
+    } catch (error) {
+        res.status(500).json(`Some internal error occured ${error}`)
+    }
+})
+
+router.get('/get-element',fetchUser,async(req,res)=>{
+    try {
+        const cart= await Cart.find({userId:req.user.id})
+        res.status(200).json(cart)
 
     } catch (error) {
         res.status(500).json(`Some internal error occured ${error}`)

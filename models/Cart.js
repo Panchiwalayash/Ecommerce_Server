@@ -14,6 +14,10 @@ const CartSchema =new Schema({
         required:true
         },
         name:String,
+        imgUrl:{
+            type:String,
+            required:true
+        },
         quantity:{
             type:Number,
             required:true

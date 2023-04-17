@@ -3,14 +3,14 @@
 var jwt = require('jsonwebtoken');
 const TOKEN=process.env.JWT_RESULT
 
-fetchAdmin=(req,res,next)=>{
-    const token=req.header('adminToken');
+fetchUser=(req,res,next)=>{
+    const token=req.header('userToken');
     if(!token){
         res.status(401).send({error:"please authenticate a valid token"})
     }
     try {
         const data=jwt.verify(token,TOKEN);
-        req.admin=data;
+        req.user=data;
         next();       
     } catch (error) {
         res.status(401).send({error:"please authenticate a valid token"})  
@@ -18,4 +18,4 @@ fetchAdmin=(req,res,next)=>{
     
 }
 
-module.exports=fetchAdmin;
+module.exports=fetchUser;
